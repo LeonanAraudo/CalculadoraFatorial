@@ -1,11 +1,20 @@
 "use client"
-import { useState } from "react";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import * as React from "react"
 
-export default function PermutacaoComposta() {
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useState } from "react"
+
+export default function CardWithForm() {
     const [numCom, setNumCom] = useState()
     const [numComRep1, setNumCom1] = useState();
     const [numComRep2, setNumCom2] = useState();
@@ -31,68 +40,51 @@ export default function PermutacaoComposta() {
         setResultado2(fatorialComposto(Number(numCom, numComRep1, numComRep2)))
     }
     return (
-        <div className="w-[100%] h-[100%] flex items-center justify-center flex-col bg-gray-200">
-            <p className="text-[25px]"><strong>Permutação Composta</strong></p>
-            <div className="w-[80%]">
-                <section>
-                    <p>
-                        <p>
-                            Permutação composta é utilizada quando há elementos repetidos em um conjunto.
-                            Diferente da permutação simples, onde todos os elementos são distintos, aqui algumas
-                            posições são ocupadas por elementos iguais, e por isso, devemos dividir para evitar
-                            contar arranjos repetidos.
-                        </p>
-                    </p>
-                </section>
-                <section>
-                    <p>
-                        <p>
-                            A fórmula é P(n; a, b, c, ...) = n! / (a! × b! × c! ...), onde "n" é o total de
-                            elementos e "a", "b", "c", etc., são as quantidades de elementos repetidos de cada tipo.
-                            Por exemplo, na palavra "ANA", temos 3 letras com o "A" repetido duas vezes. A permutação
-                            composta será 3! / 2! = 3.
-                        </p>
-                    </p>
-                </section>
-            </div>
-            <Box
-                component="form"
-                sx={{ '& .MuiTextField-root': { m: 1, width: '25ch', display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" } }}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField
-                    label="Total de elementos"
-                    onChange={(e) => setNumCom(e.target.value)}
-                    value={numCom}
-                    type="number"
-                    id="outlined-size-small"
-                    size="small"
-                />
-                <TextField
-                    label="Repetição 1"
-                    onChange={(e) => setNumCom1(e.target.value)}
-                    value={numComRep1}
-                    type="number"
-                    id="outlined-size-small"
-                    size="small"
-                />
-                <TextField
-                    label="Repetição 2"
-                    onChange={(e) => setNumCom2(e.target.value)}
-                    value={numComRep2}
-                    type="number"
-                    id="outlined-size-small"
-                    size="small"
-                />
-            </Box>
-            <Stack spacing={2} direction="row">
-                <Button onClick={calculo2} variant="contained">Calcular</Button>
-            </Stack>
-
-            {resultado2 && <p>Resultado: {resultado2}</p>}
-
-        </div>
-
+        <Card className="w-[100%]">
+            <CardHeader>
+                <CardTitle>Permutação Composta</CardTitle>
+                <CardDescription>
+                    Permutação composta é utilizada quando há elementos repetidos em um conjunto.
+                    Diferente da permutação simples, onde todos os elementos são distintos, aqui algumas
+                    posições são ocupadas por elementos iguais, e por isso, devemos dividir para evitar
+                    contar arranjos repetidos.
+                    A fórmula é P(n; a, b, c, ...) = n! / (a! × b! × c! ...), onde "n" é o total de
+                    elementos e "a", "b", "c", etc., são as quantidades de elementos repetidos de cada tipo.
+                    Por exemplo, na palavra "ANA", temos 3 letras com o "A" repetido duas vezes. A permutação
+                    composta será 3! / 2! = 3.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form>
+                    <div className="grid w-full items-center gap-4">
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="name">Número</Label>
+                            <Input id="name" onChange={(e) => setNumCom(e.target.value)}
+                                value={numCom}
+                                type="number" placeholder="Digite o número que deseja fatorar" />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="framework">Repetição 1</Label>
+                            <Input id="name"
+                                onChange={(e) => setNumCom1(e.target.value)}
+                                value={numComRep1}
+                                type="number"
+                                placeholder="Digite a quantidade da primeira repetição" />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="framework">Repetição 2</Label>
+                            <Input id="name"
+                                onChange={(e) => setNumCom2(e.target.value)}
+                                value={numComRep2}
+                                type="number"
+                                placeholder="Digite a quantidade da segunda repetição " />
+                        </div>
+                    </div>
+                </form>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+                <Button onClick={calculo2}>Calcular</Button>
+                {resultado2 && <p>Resultado: {resultado2}</p>}
+            </CardFooter>
+        </Card>
     )
 }
